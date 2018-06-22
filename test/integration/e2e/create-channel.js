@@ -108,7 +108,7 @@ test('\n\n***** SDK Built config update  create flow  *****\n\n', function(t) {
 		return testUtil.getOrderAdminSubmitter(client, t);
 	}).then((admin) => {
 		t.pass('Successfully enrolled user \'admin\' for orderer');
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		let orderer_bad = client.newOrderer(
 			ORGS.orderer.url,
 			{

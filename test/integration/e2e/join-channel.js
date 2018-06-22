@@ -93,6 +93,7 @@ function joinChannel(org, t) {
 		return testUtil.getOrderAdminSubmitter(client, t);
 	}).then((admin) => {
 		t.pass('Successfully enrolled orderer \'admin\' (joined_channel 1)');
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,

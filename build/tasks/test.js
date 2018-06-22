@@ -50,7 +50,7 @@ if (arch.indexOf('x64') === 0) {
 	throw new Error('Unknown architecture: ' + arch);
 }
 // prepare thirdpartyImageTag (currently using couchdb image in tests)
-thirdpartyImageTag = docker_arch + '-' + thirparty_release;
+// thirdpartyImageTag = docker_arch + '-' + thirparty_release;
 
 // release check
 // if (!/-snapshot/.test(release)) {
@@ -58,11 +58,12 @@ thirdpartyImageTag = docker_arch + '-' + thirparty_release;
 // }
 
 // This will lock down the fabric release being used
-dockerImageTag = docker_arch + '-' + '1.1.0';
+// dockerImageTag = docker_arch + '-' + '1.1.0';
 
 // these environment variables would be read at test/fixtures/docker-compose.yaml
-process.env.DOCKER_IMG_TAG = dockerImageTag;
-process.env.THIRDPARTY_IMG_TAG = thirdpartyImageTag;
+// process.env.DOCKER_IMG_TAG = dockerImageTag;
+// process.env.DOCKER_IMG_CA_TAG = dockerImageTag;
+// process.env.THIRDPARTY_IMG_TAG = thirdpartyImageTag;
 
 gulp.task('pre-test', function() {
 	return gulp.src([
@@ -118,12 +119,6 @@ gulp.task('test', ['clean-up', 'lint', 'pre-test', 'compile', 'docker-ready', 'c
 	// saved the user certificates so they can interact with the
 	// network
 	return gulp.src(shouldRunPKCS11Tests([
-		'test/unit/config.js', // needs to be first
-		'test/unit/**/*.js',
-		'!test/unit/constants.js',
-		'!test/unit/util.js',
-		'!test/unit/logger.js',
-		// channel: mychannel, chaincode: end2endnodesdk:v0/v1
 		'test/integration/e2e.js',
 		'test/integration/query.js',
 		'test/integration/fabric-ca-affiliation-service-tests.js',

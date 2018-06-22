@@ -57,7 +57,7 @@ test('\n\n** TEST ** orderer via member missing orderer', function(t) {
 	//
 	// Create and configure the test channel
 	//
-	let channel = client.newChannel('testChannel-orderer-member2');
+	let channel = client.newChannel('testchannel-orderer-member2');
 	let cryptoSuite = Client.newCryptoSuite();
 	cryptoSuite.setCryptoKeyStore(Client.newCryptoKeyStore({path: testUtil.storePathForOrg(orgName)}));
 	client.setCryptoSuite(cryptoSuite);
@@ -110,7 +110,7 @@ test('\n\n** TEST ** orderer via member null data', function(t) {
 	//
 	// Create and configure the test channel
 	//
-	var channel = client.newChannel('testChannel-orderer-member3');
+	var channel = client.newChannel('testchannel-orderer-member3');
 	var caRootsPath = ORGS.orderer.tls_cacerts;
 	let data = fs.readFileSync(path.join(__dirname, 'e2e', caRootsPath));
 	let caroots = Buffer.from(data).toString();
@@ -124,7 +124,7 @@ test('\n\n** TEST ** orderer via member null data', function(t) {
 	}).then(
 		function(admin) {
 			t.pass('Successfully enrolled user \'admin\'');
-
+			client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 			channel.addOrderer(
 				new Orderer(
 					ORGS.orderer.url,
@@ -190,7 +190,7 @@ test('\n\n** TEST ** orderer via member bad request', function(t) {
 	//
 	// Create and configure the test channel
 	//
-	var channel = client.newChannel('testChannel-orderer-member4');
+	var channel = client.newChannel('testchannel-orderer-member4');
 
 	// Set bad orderer address here
 	var caRootsPath = ORGS.orderer.tls_cacerts;
@@ -206,7 +206,7 @@ test('\n\n** TEST ** orderer via member bad request', function(t) {
 	}).then(
 		function(admin) {
 			t.pass('Successfully enrolled user \'admin\'');
-
+			client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 			channel.addOrderer(
 				new Orderer(
 					'grpcs://localhost:5199',

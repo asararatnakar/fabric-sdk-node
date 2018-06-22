@@ -89,6 +89,7 @@ test('Test chaincode instantiate with event, transaction invocation with chainco
 	}).then((admin) => {
 		t.pass('Successfully enrolled admin user \'admin\'');
 		the_user = admin;
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 
 		orderer = client.newOrderer(
 			'grpcs://localhost:7050',

@@ -69,7 +69,7 @@ test('\n\n **** E R R O R  T E S T I N G on upgrade call', (t) => {
 	.then((admin) => {
 		t.pass('Successfully enrolled user \'admin\'');
 		the_user = admin;
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,
@@ -238,7 +238,12 @@ function checkResults(results, error_snip, t) {
 			}
 		}
 		else {
-			t.fail(' Failed to get an error returned :: No Error returned , should have had an error with '+ error_snip);
+			if(proposal_response.response.message.toString().indexOf(error_snip) >= 0) {
+				t.pass(' Successfully got the error '+ error_snip);
+			}
+			else {
+			        t.fail(' Failed to get an error returned :: No Error returned , should have had an error with '+ error_snip);
+			}
 		}
 	}
 }

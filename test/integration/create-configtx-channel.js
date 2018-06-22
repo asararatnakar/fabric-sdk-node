@@ -75,7 +75,7 @@ test('\n\n***** Configtx Built config  create flow  *****\n\n', function(t) {
 		return testUtil.getSubmitter(client, t, true /*get the org admin*/, 'org1');
 	}).then((admin) =>{
 		t.pass('Successfully enrolled user \'admin\' for orderer (create-configtx-channel 1)');
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		orderer = client.newOrderer(
 			ORGS.orderer.url,
 			{

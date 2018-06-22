@@ -77,7 +77,7 @@ test('  ---->>>>> Query channel working <<<<<-----', (t) => {
 		return testUtil.getSubmitter(client, t, org);
 	}).then(() => {
 		t.pass('Successfully enrolled user \'admin\'');
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			new Orderer(
 				ORGS.orderer.url,

@@ -98,7 +98,16 @@ test('\n\n***** use the connection profile file  *****\n\n', function(t) {
 
 		// get the CA associated with this client's organization
 		let caService = client_org1.getCertificateAuthority();
-		t.equals(caService._fabricCAClient._caName,'ca-org1', 'checking that caname is correct after resetting the config');
+		// console.log('------------------------------------------');
+		// console.log(caService);
+		// console.log('------------------------------------------');
+		// console.log(caService.fabricCAServices);
+		// console.log('------------------------------------------');
+		// console.log(caService.fabricCAServices._fabricCAClient);
+		// console.log('------------------------------------------');
+		// console.log(caService.fabricCAServices._fabricCAClient._caName);
+		// console.log('------------------------------------------');
+		t.equals(caService.fabricCAServices._fabricCAClient._caName,'ca-org1', 'checking that caname is correct after resetting the config');
 
 		let request = {
 			enrollmentID: 'admin',
@@ -121,7 +130,8 @@ test('\n\n***** use the connection profile file  *****\n\n', function(t) {
 
 		// get the CA associated with this client's organization
 		let caService = client_org2.getCertificateAuthority();
-		t.equals(caService._fabricCAClient._caName,'ca-org2', 'checking that caname is correct after resetting the config');
+		// t.equals(caService._fabricCAClient._caName,'ca-org2', 'checking that caname is correct after resetting the config');
+		t.equals(caService.fabricCAServices._fabricCAClient._caName,'ca-org2', 'checking that caname is correct after resetting the config');
 		let request = {
 			enrollmentID: 'admin',
 			enrollmentSecret: 'adminpw',
@@ -273,6 +283,7 @@ test('\n\n***** use the connection profile file  *****\n\n', function(t) {
 		// send proposal to endorser
 		let request = {
 			//targets: get peers for this clients organization
+			targets: ['peer0.org1.example.com'],
 			chaincodePath: 'github.com/example_cc',
 			chaincodeId: 'example',
 			chaincodeVersion: 'v1',
@@ -517,7 +528,7 @@ test('\n\n***** use the connection profile file  *****\n\n', function(t) {
 			// on the same port as the other peer services.
 			let channel_event_hubs = channel_on_org1.getChannelEventHubsForOrg();
 			// we should have the an channel event hub defined on the "peer0.org1.example.com"
-			t.equals(channel_event_hubs.length,1,'Checking that the channel event hubs has just one');
+			t.equals(channel_event_hubs.length,2,'Checking that the channel event hubs has just one');
 
 			let channel_event_hub = channel_event_hubs[0];
 			t.equals(channel_event_hub.getPeerAddr(),'localhost:7051',' channel event hub address ');

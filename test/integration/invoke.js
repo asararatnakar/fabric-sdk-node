@@ -148,7 +148,7 @@ function invokeChaincode(userOrg, version, t, shouldFail, peers){
 	}).then((admin) => {
 		t.pass('Successfully enrolled user \'admin\'');
 		the_user = admin;
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,

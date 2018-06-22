@@ -1,5 +1,12 @@
 ## Hyperledger Fabric Client SDK for Node.js
 
+====================== This is for Compatibility testsing 1.1 ===> 1.2 ====================
+
+Refer instructions for execution here https://jira.hyperledger.org/browse/FAB-10161
+
+====================== This is for Compatibility testsing 1.1 ===> 1.2 ====================
+
+
 |Node 6 Build Status|Node 8 Build Status|
 |---|---|
 |[![Build Status](https://jenkins.hyperledger.org/buildStatus/icon?job=fabric-sdk-node6-merge-x86_64)](https://jenkins.hyperledger.org/view/fabric-sdk-node/job/fabric-sdk-node6-merge-x86_64/)|[![Build Status](https://jenkins.hyperledger.org/buildStatus/icon?job=fabric-sdk-node8-merge-x86_64)](https://jenkins.hyperledger.org/view/fabric-sdk-node/job/fabric-sdk-node8-merge-x86_64/)|

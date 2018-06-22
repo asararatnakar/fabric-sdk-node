@@ -108,7 +108,7 @@ test('\n\n***** configtxlator flow for create and then update  *****\n\n', funct
 	}).then((admin) =>{
 		t.pass('Successfully enrolled user \'admin\' for org1');
 		let config_json = fs.readFileSync(path.join(__dirname, '../fixtures/channel/' + channel_name + '.json'));
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		var orderer = client.newOrderer(
 			ORGS.orderer.url,
 			{

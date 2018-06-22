@@ -92,7 +92,7 @@ test('Test chaincode instantiate with event, transaction invocation with chainco
 		return testUtil.getSubmitter(client, t, true /* get peer org admin */, org);
 	}).then((admin) => {
 		t.pass('Successfully enrolled user \'admin\'');
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,
@@ -189,7 +189,6 @@ test('Test chaincode instantiate with event, transaction invocation with chainco
 		catch(err) {
 			t.fail('this catch should not have been called');
 		}
-
 		// now do one that works
 		eh.setPeerAddr(
 			ORGS[org].peer1.events,

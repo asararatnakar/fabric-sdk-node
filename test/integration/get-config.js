@@ -90,7 +90,7 @@ test('  ---->>>>> get config <<<<<-----', function(t) {
 				function(admin) {
 					t.pass('Successfully enrolled user');
 					the_user = admin;
-
+					client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 					channel.addOrderer(
 						new Orderer(
 							ORGS.orderer.url,

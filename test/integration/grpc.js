@@ -90,7 +90,8 @@ test('\n\n*** GRPC communication tests ***\n\n', (t) => {
 		}
 
 		// now dial the send limit up
-		utils.setConfigSetting('grpc.max_send_message_length', 1024 * 1024 * 2);
+		// utils.setConfigSetting('grpc.max_send_message_length', 1024 * 1024 * 2);
+		utils.setConfigSetting('grpc-max-send-message-length', 1024 * 1024 * 2);
 		// be sure to create a new peer to pick up the new settings
 
 		return e2eUtils.installChaincode('org1', testUtil.CHAINCODE_PATH, null, 'v2', 'golang', t, true);
@@ -111,6 +112,7 @@ test('\n\n*** GRPC communication tests ***\n\n', (t) => {
 		utils.setConfigSetting('grpc.max_receive_message_length', 0);
 		// limit the send message size to 1M
 		utils.setConfigSetting('grpc-max-receive-message-length', 10);
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		// for this test we only need to send to one of the peers in org1
 		let data = fs.readFileSync(path.join(__dirname, 'e2e', ORGS[userOrg].peer1['tls_cacerts']));
 		let peer = client.newPeer(
@@ -136,7 +138,8 @@ test('\n\n*** GRPC communication tests ***\n\n', (t) => {
 		}
 
 		// now dial the send limit up by setting to -1 for unlimited
-		utils.setConfigSetting('grpc.max_receive_message_length', -1);
+		// utils.setConfigSetting('grpc.max_receive_message_length', -1);
+		utils.setConfigSetting('grpc-max-receive-message-length', -1);
 
 		// must re-construct a new peer instance to pick up the new setting
 		let data = fs.readFileSync(path.join(__dirname, 'e2e', ORGS[userOrg].peer1['tls_cacerts']));
@@ -169,7 +172,8 @@ test('\n\n*** GRPC communication tests ***\n\n', (t) => {
 				// now dial the receive limit back down to reproduce the message size error
 				// notice this is another way to set a grpc setting, this will override
 				// what is in the config setting.
-				'grpc.max_receive_message_length': 10
+				'grpc-max-receive-message-length': 10
+				// 'grpc.max_receive_message_length': 10
 			}
 		);
 
@@ -185,9 +189,10 @@ test('\n\n*** GRPC communication tests ***\n\n', (t) => {
 			throw new Error('Test Failed');
 		}
 		// now dial the send limit up by setting to -1 for unlimited
-		utils.setConfigSetting('grpc.max_receive_message_length', -1);
-		utils.setConfigSetting('grpc.max_send_message_length', -1);
-
+		// utils.setConfigSetting('grpc.max_receive_message_length', -1);
+		// utils.setConfigSetting('grpc.max_send_message_length', -1);
+		utils.setConfigSetting('grpc-max-receive-message-length', -1);
+		utils.setConfigSetting('grpc-max-send-message-length', -1);
 		let submitterCert = submitter.getIdentity()._certificate;
 		let submitterKey = submitter.getSigningIdentity()._key;
 

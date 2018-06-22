@@ -49,7 +49,7 @@ test('\n\n** Test chaincode install using chaincodePath to create chaincodePacka
 	var params = {
 		org: 'org1',
 		testDesc: 'using chaincodePath',
-		channelName: 'testInstall',
+		channelName: 'testinstall',
 		chaincodeId: 'install',
 		chaincodePath: testUtil.CHAINCODE_PATH,
 		chaincodeVersion: testUtil.getUniqueVersion(),
@@ -77,7 +77,7 @@ test('\n\n** Test chaincode install using chaincodePath to create chaincodePacka
 		params.testDesc = params.testDesc+'0';
 		installChaincode(params, t)
 		.then((info) => {
-			if (info && info.toString().indexOf('install.'+params.chaincodeVersion+' exists') > 0) {
+			if (info && info.response.message.toString().indexOf('install.'+params.chaincodeVersion+' exists') > 0) {
 				t.pass('passed check for exists on install again');
 				t.end();
 			} else {
@@ -99,7 +99,7 @@ test('\n\n** Test chaincode install using chaincodePackage[byte] **\n\n', (t) =>
 	var params = {
 		org: 'org1',
 		testDesc: 'using chaincodePackage',
-		channelName: 'testInstallPackage',
+		channelName: 'testinstallpackage',
 		chaincodeId: 'install-package',
 		chaincodePath: testUtil.CHAINCODE_PATH+'_pkg',//not an existing path
 		chaincodeVersion: testUtil.getUniqueVersion()
@@ -130,7 +130,7 @@ test('\n\n** Test chaincode install using chaincodePackage[byte] **\n\n', (t) =>
 			params.testDesc = params.testDesc+'0';
 			installChaincode(params, t)
 			.then((info) => {
-				if (info && info.toString().indexOf('install-package.'+params.chaincodeVersion+' exists') > 0) {
+				if (info && info.response.message.toString().indexOf('install-package.'+params.chaincodeVersion+' exists') > 0) {
 					t.pass('passed check for exists same code again');
 					t.end();
 				} else {
@@ -176,7 +176,7 @@ function installChaincode(params, t) {
 		}).then((admin) => {
 			t.pass(params.testDesc+' - Successfully enrolled user \'admin\'');
 			the_user = admin;
-
+			client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 			channel.addOrderer(
 				client.newOrderer(
 					ORGS.orderer.url,

@@ -84,7 +84,7 @@ function installChaincode(org, chaincode_path, metadata_path, version, language,
 	}).then((admin) => {
 		t.pass('Successfully enrolled user \'admin\' (e2eUtil 1)');
 		the_user = admin;
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,
@@ -230,7 +230,7 @@ function instantiateChaincode(userOrg, chaincode_path, version, language, upgrad
 
 		t.pass('Successfully enrolled user \'admin\' (e2eUtil 2)');
 		the_user = admin;
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,
@@ -575,7 +575,7 @@ function invokeChaincode(userOrg, version, chaincodeId, t, useStore){
 
 		t.pass('Successfully enrolled user \'admin\' (e2eUtil 3)');
 		the_user = admin;
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		channel.addOrderer(
 			client.newOrderer(
 				ORGS.orderer.url,
@@ -828,7 +828,7 @@ function queryChaincode(org, version, value, chaincodeId, t, transientMap) {
 		the_user = admin;
 
 		t.pass('Successfully enrolled user \'admin\' (e2eUtil 4)');
-
+		client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
 		var targets = [];
 		// set up the channel to use each org's 'peer1' for
 		// both requests and events
